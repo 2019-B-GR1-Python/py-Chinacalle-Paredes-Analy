@@ -1,1 +1,2 @@
 Analy Chinacalle
+Paredes
