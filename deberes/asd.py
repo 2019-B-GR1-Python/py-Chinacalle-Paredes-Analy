@@ -4,6 +4,7 @@ from __future__ import print_function, unicode_literals
 from PyInquirer import style_from_dict, Token, prompt, Separator
 from pprint import pprint
 import json
+import sys
 
 print('as')
 sexo_mascota = ['hembra', 'macho']
@@ -49,10 +50,20 @@ def inicializar_mascotas_personas():
     personas.append(abrir_archivo(path_personas))
     # mascotas.append(abrir_archivo(path_mascotas))
 
+def listar_personas():
+    for persona in personas:
+        print(f"Nombre: {persona['nombre']}")
+        print(f"Fecha de nacimiento: {persona['fecha']}")
+        print(f"Cedula: {persona['cedula']}")
+        print(f"Direccion: {persona['direccion']}")
+        print('Mascotas: ')
+        for mascota in persona['mascotas']:
+              print(buscar_mascota_id(mascota))
+    return True
 
 inicializar_mascotas_personas()
-print(personas)
-print(mascotas)
+# print(listar_personas())
+# print('ya listo')
 
 
 def guardar_persona(respuestas):
@@ -78,16 +89,6 @@ def eliminar_persona(respuesta):
         escribir_archivo(path_personas, personas)
     else:
         return False
-
-def listar_personas():
-    for persona in personas:
-        print(f"Nombre: {persona['nombre']}")
-        print(f"Fecha de nacimiento: {persona['fecha']}")
-        print(f"Cedula: {persona['cedula']}")
-        print(f"Direccion: {persona['direccion']}")
-        print('Mascotas: ')
-        for mascota in persona['mascotas']:
-              print(buscar_mascota_id(mascota))
 
 
 def guardar_mascota(respuestas):
@@ -119,23 +120,13 @@ preguntas_menu_principal = [
     {
         'type': 'list',
         'name': 'opcion',
-        'message': 'Menú del debersito',
+        'message': 'Menú persona',
         'choices': [
-            {
-                'name': 'crear persona',
-            },
-            {
-                'name': 'buscar persona',
-            },
-            {
-                'name': 'listar personas'
-            },
-            {
-                'name': 'eliminar persona'
-            },
-            {
-                'name': 'salir'
-            },
+            {'name': 'crear persona'},
+            {'name': 'buscar persona'},
+            {'name': 'listar persona'},
+            {'name': 'eliminar persona'},
+            {'name': 'salir'},
         ],
         'filter': lambda val: val.split()[0]
      }
@@ -187,81 +178,35 @@ pregunta_confirmar = [
 
 def imprimir_pregunta(pregunta):
     return prompt(pregunta)
-
-def inicio():
-
-    for persona in personas:
-        index = personas.index(persona)
-        print(persona)
-    print(len(personas))
-    respuesta_prompt_menu_princ = imprimir_pregunta(preguntas_menu_principal)
-    opcion = (respuesta_prompt_menu_princ['opcion'])
-
-    # respuesta_menu_princ(opcion)
-
-def auxilio(opcion):
-    respuesta_promp_menu = respuesta_menu_princ(opcion)
-
-
-# print(answers)
-
-
-
-
-# In[ ]:
-
-
-
-
-# In[5]:
-
-
-
-
-
-
-
-
-
-
-# In[7]:
-
-
-
-# In[204]:
-
-
-# print(personas)
-""" guardar_persona({
-"nombre": "martin",
-"cedula": "1716425671",
-"fecha": "1996/12/26",
-"direccion": ""
-}) """
-# print(personas)
-
-
-# In[172]:
-
-
-""" eliminar_persona({"nombre": "bely"})
-print(personas) """
-
-
-# In[ ]:
-
-def respuesta_menu_princ(opcion):
-    print('opcioncita', opcion)
+                  
+def respuesta_menu_princ(opcion = 'listar'):
+    if opcion == 'listar':
+        listar()
+        break
+    elif opcion == 'crear':
+        imprimir_pregunta(preguntas_persona)
+        break
+    elif opcion == 'buscar':
+        imprimir_pregunta(pregunta_editar_eliminar_buscar)
+        break
+    elif opcion == 'eliminar':
+        imprimir_pregunta(pregunta_editar_eliminar_buscar)
+        break
+    else:
+        sys.exit()
+"""
     def opcion_seleccionada():
         opciones = {
-            'crear': imprimir_pregunta(preguntas_persona),
-            'buscar': imprimir_pregunta(pregunta_editar_eliminar_buscar),
-            'listar': listar_personas(),
-            'eliminar': imprimir_pregunta(pregunta_editar_eliminar_buscar)
+            'listar': listar(),
+            'crear': imprimir(preguntas_persona),
+            'buscar': imprimir(pregunta_editar_eliminar_buscar),
+            'eliminar': imprimir(pregunta_editar_eliminar_buscar)
         }
-        return opciones[opcion]
-    return opcion_seleccionada()
-
+        print(opciones['crear'])
+        return opciones.get(opcion, "respuesta invalida")
+    
+    return  opcion_seleccionada()
+"""
 
 def respuesta_menu_principal(opcion,respuesta):
     def opcion_seleccionada():
@@ -295,6 +240,46 @@ def respuesta_menu_mascota(opcion, respuesta):
         return opciones[opcion]
     return opcion_seleccionada()
 
+
+                  
+
+
+
+def auxilio(opcion):
+    respuesta_promp_menu = respuesta_menu_princ(opcion)
+
+
+
+# print(personas)
+""" guardar_persona({
+"nombre": "martin",
+"cedula": "1716425671",
+"fecha": "1996/12/26",
+"direccion": ""
+}) """
+# print(personas)
+
+
+# In[172]:
+
+
+""" eliminar_persona({"nombre": "bely"})
+print(personas) """
+
+
+# In[ ]:
+
+
+def inicio():
+
+#    print(listar_personas())
+    respuesta_prompt_menu_princ = imprimir_pregunta(preguntas_menu_principal)
+    print(respuesta_prompt_menu_princ)
+    opcion = (respuesta_prompt_menu_princ['opcion'])
+    print("tipoOpc", type(opcion))
+    
+
+    respuesta_menu_princ(opcion)
 
 
 
