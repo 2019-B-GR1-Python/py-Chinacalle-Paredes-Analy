@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
-from __future__ import print_function, unicode_literals
-from PyInquirer import style_from_dict, Token, prompt, Separator
-from pprint import pprint
+
 import json
 import sys
 
@@ -20,6 +18,7 @@ def abrir_archivo(path):
     try:
         with open(path_personas) as archivo_abierto:
             contenido = json.load(archivo_abierto)
+            print(f"contenido {contenido}")
         archivo_abierto.close()
         return contenido
     except Exception as error:
@@ -34,7 +33,9 @@ def escribir_archivo(path, contenido):
         print(f'error de escritura {error}')
 
 def inicializar_mascotas_personas():
-    personas.append(abrir_archivo(path_personas))
+    contenido = abrir_archivo(path_personas)
+    for persona in contenido:
+        personas.append(persona)
     # mascotas.append(abrir_archivo(path_mascotas))
 
 def listar_personas():
@@ -81,7 +82,7 @@ def editar_persona(nombre, persona_editar):
     persona = buscar_persona(nombre)
     if(persona):
         print('editar')
-        print(persona)
+        # print(persona)
         for key in persona.keys():
             if persona_editar[key] != '':
                 persona[key] = persona_editar[key]
@@ -147,8 +148,12 @@ def mostrar_menu_principal():
     ]
     for opcion in opciones:
         print(f"{opcion['numero']}. {opcion['name']}")
-    opcion = int(input())
-    return opcion
+    try:
+        opcion = int(input())
+        return opcion
+    except Exception as error:
+        print('Solo ingrese numeros')
+        mostrar_menu_principal()
 
 def mostrar_menu_mascotas():
     print('Menú de mascotas')
@@ -161,8 +166,11 @@ def mostrar_menu_mascotas():
     ]
     for opcion in opciones:
         print(f"{opcion['numero']}. {opcion['name']}")
-    opcion = int(input())
-    return opcion
+    try:
+        opcion = int(input())
+        return opcion
+    except Exception as error:
+        print('Solo ingrese numeros')
 
 def mostrar_menu_persona():
     persona = {
@@ -249,8 +257,9 @@ def menu_buscar_eliminar_editar_mascota(opcion, persona = {}):
 
 def menu_principal():
     opcion = mostrar_menu_principal()
+    print(opcion)
     if opcion == 3:
-        listar()
+        listar_personas()
         menu_principal()
     elif opcion == 1:
         menu_persona()
