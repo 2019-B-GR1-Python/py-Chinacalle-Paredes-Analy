@@ -1,0 +1,18 @@
+[
+    {
+        "nombre": "martin",
+        "cedula": "1716425671",
+        "fecha": "1996/12/26",
+        "direccion": "asdfgh",
+        "id": 0,
+        "mascotas": [0]
+    },
+    {
+        "nombre": "analy",
+        "cedula": "1716425671",
+        "fecha": "1996/12/26",
+        "direccion": "asdfgh",
+        "id": 0,
+        "mascotas": []
+    }
+]
