@@ -8,6 +8,7 @@ Este es un archivo temporal.
 """
 datos_raw = "species.csv"
 datos_df = pd.read_csv(datos_raw)
+pd.read_csv()
 
 
 frecuencia_tipo_animal_df = pd.crosstab(
