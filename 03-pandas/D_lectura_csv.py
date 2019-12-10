@@ -9,7 +9,7 @@ Created on Tue Nov 26 08:20:30 2019
 import pandas as pd
 import os
 
-path = 'data//artwork_data.csv'
+path = 'C://Users//Estudiante//Documents//GitHub//py-chinacalle-paredes-analy//03-pandas//data//artwork_data.csv'
 
 df = pd.read_csv(path, nrows = 10)
 
@@ -30,13 +30,13 @@ df3 = pd.read_csv(
         index_col = 'id'
         )
 
-path_guardado = 'data//artwork_data.pickle'
+path_guardado = 'C://Users//Estudiante//Documents//GitHub//py-chinacalle-paredes-analy//03-pandas//data//artwork_data.pickle'
 
 df3.to_pickle(path_guardado)
 
 df4 = pd.read_csv(path)
 
-path_guardado_bin = 'data//artwork_data_completo.pickle'
+path_guardado_bin = 'C://Users//Estudiante//Documents//GitHub//py-chinacalle-paredes-analy//03-pandas//data//artwork_data_completo.pickle'
 
 df4.to_pickle(path_guardado_bin)
 
